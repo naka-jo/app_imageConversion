@@ -36,6 +36,24 @@ def expa_shrink(img, x, y):
     new_img = cv2pil(affine_img_scale_x)
     return new_img
 
+def symmetry_onlyX(img):
+    # # xy軸対称
+    img_cv = pil2cv(img)
+    h, w, c = img_cv.shape
+    mat = np.array([[1, 0, 0], [0, -1, 0]], dtype=np.float32)
+    affine_img_scale_xy = cv2.warpAffine(img_cv, mat, (int(w * 2), h))
+    new_img = cv2pil(affine_img_scale_xy)
+    return new_img
+
+def symmetry_onlyY(img):
+    # # xy軸対称
+    img_cv = pil2cv(img)
+    h, w, c = img_cv.shape
+    mat = np.array([[-1, 0, 0], [0, 1, 0]], dtype=np.float32)
+    affine_img_scale_xy = cv2.warpAffine(img_cv, mat, (int(w * 2), h))
+    new_img = cv2pil(affine_img_scale_xy)
+    return new_img
+
 def symmetry_xy(img):
     # # xy軸対称
     img_cv = pil2cv(img)
@@ -78,7 +96,7 @@ upload_file = st.file_uploader('画像をアップロード', ['png', 'jpg', 'jp
 
 if upload_file:
     cmd = st.selectbox(label="変換方法を選んでください",options=[
-        '拡大・縮小', 'X軸対称', 'Y軸対称', 'Y=X対称', '回転', 'X軸方向の歪み', 'Y軸方向の歪み'
+        '拡大・縮小', 'X軸対称', 'Y軸対称', 'Y=X軸対称', '回転', 'X軸方向の歪み', 'Y軸方向の歪み'
         ])
     img_pil = Image.open(upload_file)
     
@@ -92,12 +110,12 @@ if upload_file:
     elif cmd == 'X軸対称':
         exec_button = st.button('実行')
         if exec_button:
-            image = symmetry_xy(img_pil)
+            image = symmetry_onlyX(img_pil)
             st.image(image, use_column_width=True)
     elif cmd == 'Y軸対称':
         exec_button = st.button('実行')
         if exec_button:
-            image = symmetry_xy(img_pil)
+            image = symmetry_onlyY(img_pil)
             st.image(image, use_column_width=True)
     elif cmd == 'Y=X軸対称':
         exec_button = st.button('実行')
