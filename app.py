@@ -28,7 +28,6 @@ def cv2pil(image):
     return new_image
 
 def expa_shrink(img, x, y):
-    # 拡大・縮小
     img_cv = pil2cv(img)
     h, w, c = img_cv.shape
     mat = np.array([[x, 0, 0], [0, y, 0]], dtype=np.float32)
@@ -37,7 +36,6 @@ def expa_shrink(img, x, y):
     return new_img
 
 def symmetry_onlyX(img):
-    # # xy軸対称
     img_cv = pil2cv(img)
     h, w, c = img_cv.shape
     mat = np.array([[1, 0, 0], [0, -1, 0]], dtype=np.float32)
@@ -46,7 +44,6 @@ def symmetry_onlyX(img):
     return new_img
 
 def symmetry_onlyY(img):
-    # # xy軸対称
     img_cv = pil2cv(img)
     h, w, c = img_cv.shape
     mat = np.array([[-1, 0, 0], [0, 1, 0]], dtype=np.float32)
@@ -55,7 +52,6 @@ def symmetry_onlyY(img):
     return new_img
 
 def symmetry_xy(img):
-    # # xy軸対称
     img_cv = pil2cv(img)
     h, w, c = img_cv.shape
     mat = np.array([[0, 1, 0], [1, 0, 0]], dtype=np.float32)
@@ -73,7 +69,6 @@ def rotate(img, angle):
     return new_img
 
 def skew_x(img, x):
-    #x軸スキュー変換
     img_cv=pil2cv(img)
     h, w, c = img_cv.shape
     tan = math.tan(math.radians(x))
@@ -83,7 +78,6 @@ def skew_x(img, x):
     return new_img
 
 def skew_y(img, y):
-    #y軸スキュー変換
     img_cv=pil2cv(img)
     h, w, c = img_cv.shape
     tan = math.tan(math.radians(y))
